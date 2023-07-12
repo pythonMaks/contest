@@ -33,7 +33,7 @@
       {% for task in tasks %}
         <div class="form-group">
           <div class="card-header">
-            <h5 class="mb-0">{{ task.name.capitalize() }}</h5>
+            <h5 class="mb-0">{{ task.name|capfirst }}</h5>
             <p>Сложность: <a href="{% url 'difficulty_tasks' task.difficulty %}">{{ task.get_difficulty_display }}</a></p>
             <p><a href="{% url 'author_tasks' task.prepod %}">Автор {{ task.prepod }}</a></p>
             <p><a href="{% url 'language_tasks' task.language %}">{{ task.get_language }}</a></p>

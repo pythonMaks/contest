@@ -2,7 +2,7 @@
 {% load crispy_forms_tags %}
 {% block content %}
 
-  <h1>{{ task.name.capitalize() }}</h1> 
+  <h1>{{ task.name|capfirst }}</h1> 
   <pre>Сложность: {{ task.get_difficulty_display }}</pre>
   <pre>{{ task.description }}</pre>
   Пример: INPUT:<br>{{ test.input|linebreaksbr }} <br>OUTPUT:<br>{{ test.output|linebreaksbr }}

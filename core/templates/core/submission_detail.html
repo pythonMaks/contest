@@ -2,7 +2,7 @@
 
 {% block content %}
   <h1>Решение </h1>
-  <p>Задача: {{ submission.task.name.capitalize() }}</p>
+  <p>Задача: {{ submission.task.name|capfirst }}</p>
   <p>Сложность: {{ submission.task.get_difficulty_display }}</p>
   <p>Статус: {{ submission.get_status_display }}</p>
 
