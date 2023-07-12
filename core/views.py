@@ -117,6 +117,8 @@ def task_detail(request, slug):
             submission = Submission.objects.create(
                 task=task,
                 code=code,
+                prepod=task.prepod,
+                student=request.user.username,
             )
             return redirect('submission_detail', pk=submission.pk)
     
@@ -245,10 +247,13 @@ def submission_detail(request, pk):
         error = ''
     if error:
         submission.status = 'E'
+        submission.save()
     elif passed:
         submission.status = 'AC'
+        submission.save()
     else:
         submission.status = 'WA'
+        submission.save()
     if request.method == 'POST':
         submission.student = request.user.username
         submission.save()
