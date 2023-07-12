@@ -1,0 +1,19 @@
+{% extends "main/base.html" %}
+{% block content %}
+{% if user.choice == '1' %}
+<h1>Список решений</h1>
+{% for el in article %}
+<h3><a href="{% url 'submission_detail' el.pk %}"> {{el.task.name}} ({{ el.get_status_display }}) </a></h3>
+<hr>
+{% endfor %}
+{% elif user.choice == '2' %}
+<h1>Ваши задачи</h1>
+{% for obj in prepod_task %}
+<h3><a href="{% url 'task_detail' obj.slug %}"> {{obj.name}}  </a></h3><br>
+<a href="{% url 'students_list' %}"> Решения </a>
+<hr>
+{% endfor %}
+
+{% endif %}
+{% endblock content %}
+<!-- <a href="{% url 'mydetail' task_name=el.task.name.slug %}">Подробнее</a> -->

@@ -1,0 +1,13 @@
+{% extends "main/base.html" %}
+{% block content %}
+
+{% if user.choice == '2' %}
+<h1>Решения</h1>
+{% for el in submission %}
+<h4><a href="{% url 'submission_detail' el.pk %}"> {{el.task.name}} ({{ el.get_status_display }}) </a></h4>
+
+<hr>
+{% endfor %}
+
+{% endif %}
+{% endblock content %}

@@ -1,0 +1,84 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
+<div class="container my-5">
+  <div class="row">
+    <div class="col-md-8">
+      <form method="GET" class="d-flex justify-content-between">
+        <div class="form-group d-flex align-items-end">
+          <div>
+            <label for="search">Поиск</label>
+            <input type="text" class="form-control" id="search" name="q" value="{{ request.GET.q }}">
+          </div>
+          <div>
+            <button type="submit" class="btn btn-primary ml-2" name="action" value="search">Поиск</button>
+          </div>
+        </div>
+        <div class="form-group d-flex align-items-end">
+          <div>
+            <label for="sort">Сортировать по</label>
+            <select class="form-control" id="sort" name="sort">
+              <option value="name" {% if sort == 'name' %}selected{% endif %}>Названию</option>
+              <option value="prepod" {% if sort == 'prepod' %}selected{% endif %}>Автору</option>
+              <option value="language" {% if sort == 'language' %}selected{% endif %}>Языку</option>
+              <option value="difficulty" {% if sort == 'difficulty' %}selected{% endif %}>Сложности</option>
+            </select>
+          </div>
+          <div>
+            <button type="submit" class="btn btn-primary ml-2" name="action" value="sort">Сортировка</button>
+          </div>
+        </div>
+      </form>
+
+      {% for task in tasks %}
+        <div class="form-group">
+          <div class="card-header">
+            <h5 class="mb-0">{{ task.name.capitalize() }}</h5>
+            <p>Сложность: <a href="{% url 'difficulty_tasks' task.difficulty %}">{{ task.get_difficulty_display }}</a></p>
+            <p><a href="{% url 'author_tasks' task.prepod %}">Автор {{ task.prepod }}</a></p>
+            <p><a href="{% url 'language_tasks' task.language %}">{{ task.get_language }}</a></p>
+          </div>
+          <div class="card-body">
+            <p class="card-text">{{ task.description|truncatechars:75 }}</p>
+            <a href="{% url 'task_detail' task.slug %}" class="btn btn-primary">Начать</a>
+          </div>
+        </div>
+      {% empty %}
+        <p>Нет доступных заданий.</p>
+      {% endfor %}
+
+      <div class="pagination">
+        <span class="step-links">
+          {% if page.has_previous %}
+            <a href="?page=1{% if sort %}&sort={{ sort }}{% endif %}{% if q %}&q={{ q }}{% endif %}">&laquo; первая</a>
+            <a href="?page={{ page.previous_page_number }}{% if sort %}&sort={{ sort }}{% endif %}{% if q %}&q={{ q }}{% endif %}">&lsaquo; предыдущая</a>
+          {% endif %}
+        
+          <span class="current-page">
+            Страница {{ page.number }} из {{ page.paginator.num_pages }}
+          </span>
+        
+          {% if page.has_next %}
+            <a href="?page={{ page.next_page_number }}{% if sort %}&sort={{ sort }}{% endif %}{% if q %}&q={{ q }}{% endif %}">следующая &rsaquo;</a>
+            <a href="?page={{ page.paginator.num_pages }}{% if sort %}&sort={{ sort }}{% endif %}{% if q %}&q={{ q }}{% endif %}">последняя &raquo;</a>
+          {% endif %}
+        </span>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <h2>Hello, World!</h2>
+      <p>- для самых простых задач, ведь первой программой многих начинающих разработчиков часто становится именно вывод этой фразы.</p>
+      <h2>Bug Squasher</h2>
+      <p>- для задач среднего уровня сложности, подразумевающих уверенное владение синтаксисом и умение находить и исправлять ошибки в коде.</p>
+      <h2>Algorithm Guru</h2>
+      <p>- для сложных задач, где нужно применять и создавать сложные алгоритмы.</p>
+      <h2>Stack Overflow Survivor</h2>
+      <p>- для очень сложных задач, требующих не только умений кодирования, но и способности искать ответы на сложные вопросы в интернете.</p>
+      <h2>AI's Nightmare</h2>
+      <p>- для наивысшей степени сложности, где требуется создавать код, который может вызвать проблемы даже для искусственного интеллекта.</p>
+    </div>
+  </div>
+</div>
+{% endblock %}
+

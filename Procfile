@@ -1,0 +1,1 @@
+web: gunicorn contest.wsgi --log-file -

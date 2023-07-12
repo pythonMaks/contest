@@ -1,0 +1,173 @@
+/* Темный фон */
+.myid { 
+  max-width: min(90vw, 1000px);
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #333333;
+ }
+.bodybody {
+  background: url('../images/darktheme.svg') no-repeat center center fixed;
+ 
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+
+  }
+body {    
+  
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  background-color: #333333;
+  color: #ffffff;
+  }
+  
+  pre {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+  nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .my-widget-class{
+    margin: 5px;
+  }
+  .form-group {
+    margin-bottom: 5px;
+  }
+  .border {
+    border: 1px solid rgb(44, 36, 0);
+    border-radius:  5px;
+    }
+ 
+  .navbar-brand{
+    margin-left: 2em;
+  }
+  .navbar-nav{
+    flex-wrap: nowrap;    
+  }
+  .navbar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .card-header
+  {
+    color:antiquewhite;
+    background-color: rgb(49, 49, 49);
+  }
+  .card-body
+  {
+    color:antiquewhite;
+    background-color: rgb(49, 49, 49);
+  }
+  .card-text
+  {
+    color:antiquewhite;
+    background-color: rgb(49, 49, 49);
+  }
+  nav ul {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content:  right;
+   
+  }
+  .nav-item {
+
+    align-items: center;
+    display: flex;
+  }
+  nav ul li {
+    align-items: center;
+    display: flex;
+   
+    margin: 0px 10px;
+  }
+  
+  nav ul li a {
+    text-decoration: none;
+    color: #333;
+   
+  }
+  /* Цвета для ссылок */
+  a {
+    color: #ff6f00;
+  }
+  
+  a:hover {
+    color: #ffa040;
+  }
+  
+  /* Цвета для кнопок */
+  .btn {
+    color: #ffffff;
+    background-color: #ff6f00;
+    border: 1px solid #ff6f00;
+  }
+  
+  .btn:hover {
+    background-color: #ffa040;
+    border: 1px solid #ffa040;
+  }
+  
+  /* Изменение цвета кнопки переключения темы */
+  .theme-switch {
+    color: #4d2c2c;
+  }
+  
+  .theme-switch:hover {
+    color: #5f3e1c;
+  }
+  footer {   
+    position: fixed; 
+    padding-top: 1em;
+    background-color: rgb(27, 27, 27);    
+    left: 0;
+    bottom: 0;  
+    width: 100%; 
+    text-align: center;
+    height: 5vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+  }
+  .remove-bg-button {
+    position: absolute;
+    right: 2px;
+    bottom: 2px;
+  }
+  .home{
+    border: 3px solid white;
+    border-radius:  5px;
+    margin-top: 20vh;
+    text-align: center;
+  }
+  main {
+    padding-bottom: 6vh; /* высота футера */
+  }
+
+  h1 {
+    color: white;
+    text-shadow:
+      -1px -1px 0 #000,  
+      1px -1px 0 #000,
+      -1px 1px 0 #000,
+       1px 1px 0 #000;
+  }
+
+  h3 {
+    color: white;
+    text-shadow:
+      -1px -1px 0 #000,  
+      1px -1px 0 #000,
+      -1px 1px 0 #000,
+       1px 1px 0 #000;
+  }
+

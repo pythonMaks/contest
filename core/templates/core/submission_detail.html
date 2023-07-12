@@ -1,0 +1,40 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
+  <h1>Решение </h1>
+  <p>Задача: {{ submission.task.name.capitalize() }}</p>
+  <p>Сложность: {{ submission.task.get_difficulty_display }}</p>
+  <p>Статус: {{ submission.get_status_display }}</p>
+
+  {% if error %}
+    <div class="alert alert-danger">{{ error }}</div>
+  {% endif %}
+
+  {% if passed %}
+    <div class="alert alert-success">Задание выполнено!</div>
+  {% else %}
+    <div class="alert alert-danger">Задание провалено!</div>
+  {% endif %}
+
+  <h2>Код:</h2>
+  <pre>{{ submission.code }}</pre> 
+
+  <h2>Ваш вывод:</h2>
+<pre>{% for i in output %}
+{{ i }}
+{% endfor %}
+</pre>
+
+  <h2>Правильный вывод:</h2>
+<pre>{% for test in tests %}
+{{ test.output }}
+  {% endfor %}
+  </pre>
+{% if  user.username == submission.student %}
+  {% if  submission.status == 'WA' or submission.status == 'E'  %}
+  <a class="btn btn-primary" href="{% url 'task_detail' submission.task.slug %}">Попробовать еще раз</a>
+  {% endif %}
+{% endif %}
+{% endblock %}
+
+<button type="button" action="task_detail submission.task.pk" class="btn btn-primary">Повторить</button>

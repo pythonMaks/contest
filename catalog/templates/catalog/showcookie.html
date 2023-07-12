@@ -1,0 +1,7 @@
+{% extends "main/base.html" %}
+{% block content %}
+    <center> <h1>{{text}}</h1>
+    Вы посещали эту страницу {{value}} раз<br>
+    <a class="btn btn-primary" href="{% url 'delcookie' %}">удалить куки</a>
+</center>
+{% endblock content %}
