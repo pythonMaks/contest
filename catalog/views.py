@@ -35,8 +35,8 @@ def students_list(request):
     return render(request, 'catalog/students_list.html', {'students': students_unique})
 
 @login_required
-def submission_list(request, student):   
-    submission = Submission.objects.filter(prepod=request.user.username, student=student)
+def submission_list(request):   
+    submission = Submission.objects.filter(student=request.user.username)
     return render(request, 'catalog/submission_list.html', {'submission': submission})
     
 
