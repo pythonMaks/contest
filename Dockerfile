@@ -26,7 +26,7 @@ RUN curl -s https://get.sdkman.io | bash \
 ENV PATH $PATH:/root/.sdkman/candidates/kotlin/current/bin
 
 
-WORKDIR /app
+WORKDIR ./app
 
 
 COPY requirements.txt ./
