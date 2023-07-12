@@ -107,9 +107,9 @@ def task_detail(request, slug):
     task = get_object_or_404(Task, slug=slug)
     form = SubmissionForm()
     test = Test.objects.filter(task=task)
-    logger = logging.getLogger(__name__)
-    logger.info(test)
-    logger.info(test[0].output)
+   # logger = logging.getLogger(__name__)
+   # logger.info(test)
+   # logger.info(test[0].output)
     if request.method == 'POST':
         form = SubmissionForm(request.POST)
         if form.is_valid():
@@ -192,7 +192,7 @@ def execute_code(code, language, input_data):
     
 @login_required
 def submission_detail(request, pk):
-    logger = logging.getLogger(__name__)
+    #logger = logging.getLogger(__name__)
     submission = get_object_or_404(Submission, pk=pk)
     task = submission.task
     submission.prepod = submission.task.prepod
@@ -212,14 +212,14 @@ def submission_detail(request, pk):
         tests.append(test_case)
         input_data = test_case.input.strip()
         expected_output = test_case.output
-        logger.info(f'1 {expected_output}')             
+       # logger.info(f'1 {expected_output}')             
         expected_output = test_case.output.strip()
-        logger.info(f'1 {expected_output}')       
+        #logger.info(f'1 {expected_output}')       
         if input_data and expected_output:   
             output_i, error_i = execute_code(submission.code, task.language, input_data)
             try:
-                logger.info(f'2 {output_i}')
-                logger.info(f'3 {expected_output}')                
+                #logger.info(f'2 {output_i}')
+                #logger.info(f'3 {expected_output}')                
                 if isinstance(output_i, bytes):
                     encoding = chardet.detect(output_i)['encoding']
                     output_i = output_i.decode(encoding).strip()
