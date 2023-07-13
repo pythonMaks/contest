@@ -194,7 +194,7 @@ def execute_code(code, language, input_data):
     
 @login_required
 def submission_detail(request, pk):
-    #logger = logging.getLogger(__name__)
+    logger = logging.getLogger(__name__)
     submission = get_object_or_404(Submission, pk=pk)
     task = submission.task
     submission.prepod = submission.task.prepod
