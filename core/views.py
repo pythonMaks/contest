@@ -232,7 +232,11 @@ def submission_detail(request, pk):
             except Exception as e:
                 if isinstance(error_i, bytes):
                         encoding = chardet.detect(error_i)['encoding']
-                        error_i = error_i.decode(encoding).strip()
+                        logger.info(f'1 {error_i}')
+                        try:
+                            error_i = error_i.decode(encoding).strip()
+                        except:
+                            pass
                 error.append(error_i)
             except:
                 pass
