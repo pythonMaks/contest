@@ -87,11 +87,18 @@ body {
 .search_btn{
   height: 35px;
 }
-.task{
-  display: flex; 
-  flex-direction: column; 
+.buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: end;
+}
+
+.task {
+  display: flex;
+  flex-direction: column;
   align-items: flex-end;
 }
+
   
   /* Footer Styles */
   footer {   
