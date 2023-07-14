@@ -6,7 +6,7 @@
 <pre>Сложность: {{ task.get_difficulty_display }}</pre>
 <pre>{{ task.description }}</pre>
 Пример: INPUT:<br>{{ test.input|linebreaksbr }} <br>OUTPUT:<br>{{ test.output|linebreaksbr }}
-<div class="buttons">
+
   <form method="post">
     {% csrf_token %}
     {{ form|crispy }}
@@ -15,6 +15,7 @@
   
   {% if user.choice == '2' and task.prepod == user.username %}
   <div class="task">
+    <div class="buttons">
     <form method="GET" action="{% url 'edit_task' task.pk %}">
       <button type="submit" class="btn btn-primary btn-sm">
         Редактировать задачу
