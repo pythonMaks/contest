@@ -292,7 +292,7 @@ def submission_detail(request, pk):
         submission.status = 'WA'
         submission.save()
     try:
-        grade = TaskGrade.objects.get(student=submission.student, task=submission.task)
+        grade = TaskGrade.objects.get(student=User.objects.get(username=submission.student), task=submission.task)
         form = TaskGradeForm(instance=grade)
     except TaskGrade.DoesNotExist:
         grade = None
