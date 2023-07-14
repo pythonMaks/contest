@@ -24,11 +24,10 @@ def task_create(request):
         formset = TestFormSet(request.POST, prefix='tests')
         form = TaskForm(request.POST, user_language=user_language)
         if form.is_valid() and formset.is_valid():
-            form.prepod = request.user.username
-            task = form.save()
-            tests = formset.save(commit=False)
+            task = form.save(commit=False)
             task.prepod = request.user.username
             task.save()
+            tests = formset.save(commit=False)
             for test in tests:
                 test.task = task
                 test.save()
