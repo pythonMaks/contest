@@ -292,6 +292,7 @@ def submission_detail(request, pk):
         submission.status = 'WA'
         submission.save()
     try:
+        TaskGrade.objects.filter(student=User.objects.get(username=submission.student), task=submission.task).delete()
         grade = TaskGrade.objects.get(student=User.objects.get(username=submission.student), task=submission.task)
         form = TaskGradeForm(instance=grade)
     except TaskGrade.DoesNotExist:
