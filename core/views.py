@@ -8,6 +8,7 @@ import chardet
 from users.models import User
 from django.core.paginator import Paginator
 from django.db.models import Q
+from groups.models import TaskGrade
 import docker
 import shlex
 import base64
@@ -290,8 +291,13 @@ def submission_detail(request, pk):
     else:
         submission.status = 'WA'
         submission.save()
-    if request.method == 'POST':
-        form = TaskGradeForm(request.POST)
+    try:
+        grade = TaskGrade.objects.get(student=submission.student, task=submission.task)
+        form = TaskGradeForm(instance=grade)
+    except TaskGrade.DoesNotExist:
+        grade = None
+        form = TaskGradeForm()
+    if request.method == 'POST':        
         if form.is_valid():
             grade = form.save(commit=False)
             grade.student = User.objects.get(username=submission.student)
@@ -300,7 +306,7 @@ def submission_detail(request, pk):
     else:
         form = TaskGradeForm()
         
-    return render(request, 'core/submission_detail.html', {'form': form, 'submission': submission, 'tests': tests, 'output': output, 'error': error, 'passed': passed})
+    return render(request, 'core/submission_detail.html', {'grade': grade, 'form': form, 'submission': submission, 'tests': tests, 'output': output, 'error': error, 'passed': passed})
 
 
 

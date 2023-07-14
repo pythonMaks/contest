@@ -35,7 +35,22 @@
   <a class="btn btn-primary" href="{% url 'task_detail' submission.task.slug %}">Попробовать еще раз</a>
   {% endif %}
 {% endif %}
-{% if request.user.is_authenticated and request.user.username == submission.task.prepod %}
+{% if grade %}
+    <h2>Оценка: {{ grade.grade }}</h2>
+    {% if request.user.is_authenticated and request.user.username == submission.task.prepod %}
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit" class="btn btn-primary">Изменить оценку</button>
+    </form>
+{% else %}
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit" class="btn btn-primary">Оценить задачу</button>
+    </form>
+{% endif %}
+
     <form method="post">
       {% csrf_token %}
       {{ form.as_p }}
