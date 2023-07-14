@@ -5,6 +5,7 @@ from .models import Task, Submission, Test
 from .forms import SubmissionForm, TaskForm, TestForm, TestFormSet, TaskGradeForm
 from django.contrib.auth.decorators import login_required
 import chardet
+from users.models import User
 from django.core.paginator import Paginator
 from django.db.models import Q
 import docker
@@ -293,7 +294,7 @@ def submission_detail(request, pk):
         form = TaskGradeForm(request.POST)
         if form.is_valid():
             grade = form.save(commit=False)
-            grade.student = submission.student
+            grade.student = User.objects.get(username=submission.student)
             grade.task = submission.task
             grade.save()
     else:
