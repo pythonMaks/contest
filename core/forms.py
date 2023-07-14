@@ -2,6 +2,13 @@ from django import forms
 from .models import Submission, Task, Test
 from crispy_forms.layout import Submit, Layout, Fieldset
 from crispy_forms.helper import FormHelper
+from groups.models import TaskGrade
+
+class TaskGradeForm(forms.ModelForm):
+    class Meta:
+        model = TaskGrade
+        fields = ['grade']
+
 
 
 class SubmissionForm(forms.ModelForm):

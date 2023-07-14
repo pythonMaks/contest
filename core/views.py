@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from .models import Task, Submission, Test
-from .forms import SubmissionForm, TaskForm, TestForm, TestFormSet
+from .forms import SubmissionForm, TaskForm, TestForm, TestFormSet, TaskGradeForm
 from django.contrib.auth.decorators import login_required
 import chardet
 from django.core.paginator import Paginator
@@ -291,10 +291,16 @@ def submission_detail(request, pk):
         submission.status = 'WA'
         submission.save()
     if request.method == 'POST':
-        submission.student = request.user.username
-        submission.save()
+        form = TaskGradeForm(request.POST)
+        if form.is_valid():
+            grade = form.save(commit=False)
+            grade.student = submission.student
+            grade.task = submission.task
+            grade.save()
+    else:
+        form = TaskGradeForm()
         
-    return render(request, 'core/submission_detail.html', {'submission': submission, 'tests': tests,'output': output, 'error': error, 'passed': passed})
+    return render(request, 'core/submission_detail.html', {'form': form, 'submission': submission, 'tests': tests, 'output': output, 'error': error, 'passed': passed})
 
 
 
