@@ -15,4 +15,4 @@ def create_group(request):
             return redirect('groups')  # имя URL-шаблона для страницы со списком групп
     else:
         form = GroupForm(user=request.user)
-    return render(request, 'group/create_group.html', {'form': form})
+    return render(request, 'groups/create_group.html', {'form': form})
