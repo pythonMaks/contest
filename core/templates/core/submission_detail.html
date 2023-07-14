@@ -43,19 +43,14 @@
       {{ form.as_p }}
       <button type="submit" class="btn btn-primary">Изменить оценку</button>
     </form>
+    {% endif %}
 {% else %}
+    {% if request.user.is_authenticated and request.user.username == submission.task.prepod %}
     <form method="post">
       {% csrf_token %}
       {{ form.as_p }}
       <button type="submit" class="btn btn-primary">Оценить задачу</button>
     </form>
-{% endif %}
-
-    <form method="post">
-      {% csrf_token %}
-      {{ form.as_p }}
-      <button type="submit" class="btn btn-primary">Оценить задачу</button>
-    </form>
+    {% endif %}
 {% endif %}
 {% endblock %}
-
