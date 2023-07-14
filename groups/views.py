@@ -22,7 +22,7 @@ def create_group(request):
 @login_required
 def view_groups(request):
     groups = Group.objects.filter(professor=request.user)
-    return render(request, 'groups/view_groups.html', {'groups': groups})
+    return render(request, 'groups/groups.html', {'groups': groups})
 
 
 
