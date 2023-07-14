@@ -33,9 +33,9 @@ def index(request):
 @login_required
 def students_list(request, task_id):   
     students_unique = Submission.objects.filter(prepod=request.user.username, task__id=task_id).values('student').distinct()
-    return render(request, 'catalog/students_list.html', {'students': students_unique})
+    return render(request, 'catalog/students_list.html', {'students': students_unique, 'task_id': task_id})
 
 @login_required
 def submission_list(request, student, task_id):   
     submission = Submission.objects.filter(prepod=request.user.username, student=student, task__id=task_id)
-    return render(request, 'catalog/submission_list.html', {'submission': submission})
+    return render(request, 'catalog/submission_list.html', {'submission': submission, 'task_id': task_id})
