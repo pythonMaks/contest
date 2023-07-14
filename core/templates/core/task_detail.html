@@ -21,7 +21,13 @@
       Удалить задачу
     </button>
   </form>
-  {% endif %}
+  <form method="GET" action="{% url 'edit_task' task.pk %}">
+    <button type="submit" class="btn btn-primary btn-sm">
+      Редактировать задачу
+    </button>
+  </form>
+{% endif %}
+
   {% endblock %}
 
 

@@ -4,7 +4,7 @@
 {% if user.choice == '2' %}
 <h1>Студенты</h1>
 {% for obj in students %}
-<h3><a href="{% url 'submission_list' obj.student %}"> {{obj.student}}  </a></h3>
+<h3><a href="{% url 'submission_list' task_id obj.student %}"> {{obj.student}}  </a></h3>
 
 <hr>
 {% endfor %}

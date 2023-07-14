@@ -16,8 +16,8 @@ urlpatterns = [
 	path('admin/', admin.site.urls),
 	path('register/', user_views.register, name='register'),
     path('catalog/', cat_views.index, name='catalog'),
-    path('submission_list/<str:student>', cat_views.submission_list, name='submission_list'),
-    path('students_list/', cat_views.students_list, name='students_list'),
+    path('submission_list/<int:task_id>/<str:student>', cat_views.submission_list, name='submission_list'),
+    path('students_list/<int:task_id>/', cat_views.students_list, name='students_list'),
 
     path('catalog/<int:pk>/', cat_views.MyDetailView.as_view(), name='mydetail'),
 	path('', include('main.urls')),

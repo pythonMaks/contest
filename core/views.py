@@ -37,6 +37,38 @@ def task_create(request):
     return render(request, 'core/task_create.html', {'form': form, 'formset': formset})
 
 @login_required
+def task_edit(request, task_id):
+    # Если пользователь не является преподавателем, перенаправляем на страницу с ошибкой.
+    if request.user.choice != '2':
+        return render(request, 'core/error.html', {'message': 'Вы не имеете прав для редактирования задач.'})
+
+    # Получаем задачу, которую хотим редактировать
+    task = get_object_or_404(Task, pk=task_id)
+
+    # Проверяем, что текущий пользователь является автором задачи
+    if task.prepod != request.user.username:
+        return render(request, 'core/error.html', {'message': 'Вы не можете редактировать эту задачу.'})
+
+    user_language = request.user.language or 'python'   
+    form = TaskForm(instance=task, user_language=user_language)
+    formset = TestFormSet(instance=task, prefix='tests')   
+
+    if request.method == 'POST':
+        form = TaskForm(request.POST, instance=task, user_language=user_language)
+        formset = TestFormSet(request.POST, instance=task, prefix='tests')
+        if form.is_valid() and formset.is_valid():
+            form.prepod = request.user.username
+            task = form.save()
+            tests = formset.save(commit=False)
+            for test in tests:
+                test.task = task
+                test.save()
+            return redirect('task_detail', slug=task.slug)
+
+    return render(request, 'core/task_edit.html', {'form': form, 'formset': formset})
+
+
+@login_required
 def task_list(request):
     
     sort = request.GET.get('sort', 'name')  # получаем параметр сортировки из GET-запроса

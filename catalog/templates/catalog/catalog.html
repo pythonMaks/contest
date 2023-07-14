@@ -10,7 +10,7 @@
 <h1>Ваши задачи</h1>
 {% for obj in prepod_task %}
 <h3><a href="{% url 'task_detail' obj.slug %}"> {{obj.name}}  </a></h3><br>
-<a href="{% url 'students_list' %}"> Решения </a>
+<a href="{% url 'students_list' obj.pk  %}"> Решения </a>
 <hr>
 {% endfor %}
 
