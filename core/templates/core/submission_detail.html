@@ -35,7 +35,7 @@
   <a class="btn btn-primary" href="{% url 'task_detail' submission.task.slug %}">Попробовать еще раз</a>
   {% endif %}
 {% endif %}
-{% if request.user.is_authenticated and request.user.username == submission.task.professor %}
+{% if request.user.is_authenticated and request.user.username == submission.task.prepod %}
     <form method="post">
       {% csrf_token %}
       {{ form.as_p }}
@@ -44,4 +44,3 @@
 {% endif %}
 {% endblock %}
 
-<button type="button" action="task_detail submission.task.pk" class="btn btn-primary">Повторить</button>
