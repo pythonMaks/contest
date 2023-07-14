@@ -1,0 +1,16 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
+  <h1>Мои группы</h1>
+  <ul>
+    {% for group in groups %}
+      <li>
+        <h2><a href="{% url 'group_detail' group.id %}">{{ group.name }}</a></h2>
+        <p>Количество студентов: {{ group.students.count }}</p>
+        <p>Количество задач: {{ group.tasks.count }}</p>
+      </li>
+    {% empty %}
+      <li>У вас нет созданных групп</li>
+    {% endfor %}
+  </ul>
+{% endblock %}
