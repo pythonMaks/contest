@@ -146,6 +146,11 @@ body {
     right: 2px;
     bottom: 2px;
   }
+  .task{
+    display: flex; 
+    flex-direction: column; 
+    align-items: flex-end;
+  }
   .home{
     border: 3px solid white;
     border-radius:  5px;

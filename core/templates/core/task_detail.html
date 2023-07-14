@@ -12,21 +12,26 @@
   <button type="submit" class="btn btn-primary">Отправить</button>
   
   </form>
-  <br>
+  
   {% if user.choice == '2' and task.prepod == user.username %}
+
+  <div class="task">
+    <form method="GET" action="{% url 'edit_task' task.pk %}">
+      <button type="submit" class="btn btn-primary btn-sm">
+        Редактировать задачу
+      </button>
+    </form>
+    <br>
   <form method="POST" action="{% url 'delete_task' task.pk %}">
     {% csrf_token %}
     <br>
     <button type="submit" class="btn btn-danger btn-sm">
       Удалить задачу
-    </button>
-    <br>
+    </button>    
   </form>
-  <form method="GET" action="{% url 'edit_task' task.pk %}">
-    <button type="submit" class="btn btn-primary btn-sm">
-      Редактировать задачу
-    </button>
-  </form>
+  
+
+</div>
 {% endif %}
 
   {% endblock %}
