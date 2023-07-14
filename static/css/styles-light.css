@@ -88,16 +88,16 @@ body {
   height: 40px;
 }
 .buttons {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  align-items: end;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
-
 .task {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
 }
+
 
   
   /* Footer Styles */
