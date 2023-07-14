@@ -3,7 +3,7 @@ from core.models import Task
 from django.conf import settings
 
 class Group(models.Model):
-    professor = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='groups')
+    professor = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='taught_groups')
     students = models.ManyToManyField(settings.AUTH_USER_MODEL, through='GroupMembership')
     name = models.CharField(max_length=255)
     tasks = models.ManyToManyField(Task)
