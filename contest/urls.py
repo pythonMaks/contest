@@ -23,6 +23,7 @@ urlpatterns = [
 	path('', include('main.urls')),
     path('delete-task/<int:pk>/', user_views.delete_task, name='delete_task'),
     path('', include('core.urls')),
+    path('', include('groups.urls')),
     
   
     
