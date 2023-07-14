@@ -109,12 +109,15 @@ body {
     color: #ffffff;
     background-color: #ff6f00;
     border: 1px solid #ff6f00;
-  }
+    border-radius: 3px;
+    cursor: pointer;
+}
   
-  .btn:hover {
+.btn:hover {
     background-color: #ffa040;
     border: 1px solid #ffa040;
-  }
+}
+
   
   /* Изменение цвета кнопки переключения темы */
   .theme-switch {

@@ -3,7 +3,7 @@
 
 {% block content %}
 <div class="col-md-8">
-<h2>Создать новую задачу</h2>
+    <h2>{{ form_title }}</h2>
 
   <form method="POST">
     {% csrf_token %}

@@ -34,7 +34,7 @@ def task_create(request):
                 test.save()
             return redirect('task_detail', slug=task.slug)
 
-    return render(request, 'core/task_create.html', {'form': form, 'formset': formset})
+    return render(request, 'core/task_create.html', {'form': form, 'formset': formset, 'form_title': 'Создать новую задачу'})
 
 @login_required
 def task_edit(request, task_id):
@@ -65,7 +65,7 @@ def task_edit(request, task_id):
                 test.save()
             return redirect('task_detail', slug=task.slug)
 
-    return render(request, 'core/task_edit.html', {'form': form, 'formset': formset})
+    return render(request, 'core/task_create.html', {'form': form, 'formset': formset, 'form_title': 'Редактировать задачу'})
 
 
 @login_required
