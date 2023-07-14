@@ -292,19 +292,19 @@ def submission_detail(request, pk):
         submission.status = 'WA'
         submission.save()
     try:
-    grade = TaskGrade.objects.get(student=User.objects.get(username=submission.student), task=submission.task)
-except TaskGrade.DoesNotExist:
-    grade = None
+        grade = TaskGrade.objects.get(student=User.objects.get(username=submission.student), task=submission.task)
+    except TaskGrade.DoesNotExist:
+        grade = None
 
-if request.method == 'POST':
-    form = TaskGradeForm(request.POST, instance=grade)
-    if form.is_valid():
-        grade = form.save(commit=False)
-        grade.student = User.objects.get(username=submission.student)
-        grade.task = submission.task
-        grade.save()
-else:
-    form = TaskGradeForm(instance=grade)
+    if request.method == 'POST':
+        form = TaskGradeForm(request.POST, instance=grade)
+        if form.is_valid():
+            grade = form.save(commit=False)
+            grade.student = User.objects.get(username=submission.student)
+            grade.task = submission.task
+            grade.save()
+    else:
+        form = TaskGradeForm(instance=grade)
         
     return render(request, 'core/submission_detail.html', {'grade': grade, 'form': form, 'submission': submission, 'tests': tests, 'output': output, 'error': error, 'passed': passed})
 
