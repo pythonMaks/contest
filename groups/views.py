@@ -50,12 +50,12 @@ def view_group(request, group_id):
 def edit_group(request, group_id):
     group = get_object_or_404(Group, id=group_id, professor=request.user)
     if request.method == 'POST':
-        form = GroupForm(request.POST, instance=group)
+        form = GroupForm(request.POST, instance=group, user=request.user)
         if form.is_valid():
             form.save()
             return redirect('view_group', group_id=group.id)
     else:
-        form = GroupForm(instance=group)
+        form = GroupForm(instance=group, user=request.user)
     return render(request, 'groups/edit_group.html', {'form': form, 'group': group})
 
 @login_required
