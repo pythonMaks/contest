@@ -3,7 +3,7 @@
 {% block content %}
   <h1>{{ group.name }}</h1>
   
-  {% if request.user.is_authenticated and request.user == group.professor_id %}
+  {% if request.user.is_authenticated and request.user.id == group.professor_id %}
     <a class="btn btn-primary" href="{% url 'edit_group' group.id %}">Редактировать группу</a>
     <a class="btn btn-danger" href="{% url 'delete_group' group.id %}">Удалить группу</a>
   {% endif %}
