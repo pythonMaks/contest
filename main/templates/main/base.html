@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}{% endblock %}</title>
+    <link rel="icon" type="image/x-icon" href="{% static 'favicon.ico' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.0/css/bootstrap.min.css">
     <link id="theme" rel="stylesheet" href="{% static 'css/styles-dark.css' %}">
     {% block extra_css %}{% endblock %}
@@ -106,10 +107,27 @@ function toggleTheme() {
         theme.setAttribute("href", "{% static 'css/styles-light.css' %}");
         localStorage.setItem("theme", "light");
     }
+    toggleTableClass(); // добавлено
+}
+
+
+
+window.addEventListener("DOMContentLoaded", function() {
+    var savedTheme = localStorage.getItem("theme");
+    if (savedTheme) {
+        var theme = document.getElementById("theme");
+
+        if (savedTheme === "dark") {
+            theme.setAttribute("href", "{% static 'css/styles-dark.css' %}");
+        } else {
+            theme.setAttribute("href", "{% static 'css/styles-light.css' %}");
+        }
+    }
     if (typeof toggleTableClass === "function") {
         toggleTableClass(); // будет вызываться только если функция определена
     }
-}
+});
+
 
   </script>
   
