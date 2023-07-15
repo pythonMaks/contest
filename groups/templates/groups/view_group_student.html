@@ -3,14 +3,15 @@
 {% block content %}
   <h1>Группа: {{ group.name }}</h1>
   
-  <table>
+  <table class="w-25">
     <tr>
       <th>Задача</th>
       <th>Оценка</th>
     </tr>
     {% for task, grade in tasks_grades %}
       <tr>
-        <td>{{ task.name }}</td>
+        <td><a href="{% url 'task_detail' task.slug %}">{{ task.name }}</a></td>
+      
         <td>{{ grade }}</td>
       </tr>
     {% endfor %}
