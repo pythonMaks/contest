@@ -15,11 +15,11 @@
     {{ test_form|crispy }}
   {% endfor %}
   
-  {% if user.choice == '2' and task.prepod == user.username %}
+  
     <div class="buttons">
       <button type="submit" class="btn btn-primary">Отправить</button>
     </div>
-  {% endif %}
+  
 </form>
 
 {% if user.choice == '2' and task.prepod == user.username %}
