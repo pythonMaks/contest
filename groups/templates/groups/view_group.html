@@ -4,7 +4,7 @@
   <h1>{{ group.name }}</h1>
   
   {% if request.user.is_authenticated and request.user.id == group.professor_id %}
-  <div class="form-group d-flex align-items-end">
+  <div class="form-group d-flex justify-content-between align-items-end">
     <div>
     <a class="btn btn-primary ml-2" href="{% url 'edit_group' group.id %}">Редактировать группу</a>
   </div>
