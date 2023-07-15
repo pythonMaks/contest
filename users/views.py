@@ -47,9 +47,19 @@ def profile(request):
                                                 'user_form': user_form,
                                                 'password_form': password_form
                                                 })
+# @login_required
+# def delete_task(request, pk):
+#     task = Task.objects.get(pk=pk)       
+#     task.delete()
+#     messages.success(request, 'Задача была успешно удалена.')
+#     return redirect('catalog')
+    
 @login_required
 def delete_task(request, pk):
-    task = Task.objects.get(pk=pk)       
-    task.delete()
-    messages.success(request, 'Задача была успешно удалена.')
-    return redirect('catalog')
+    task = Task.objects.get(pk=pk)          
+    if request.method == 'POST':
+        task.delete()
+        return redirect('catalog')
+    return render(request, 'users/confirm_delete.html', {'task': task})
+
+

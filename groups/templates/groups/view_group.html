@@ -2,6 +2,12 @@
 {% load my_extras %}
 {% block content %}
   <h1>{{ group.name }}</h1>
+  
+  {% if request.user.is_authenticated and request.user.username == group.teacher %}
+    <a class="btn btn-primary" href="{% url 'edit_group' group.id %}">Редактировать группу</a>
+    <a class="btn btn-danger" href="{% url 'delete_group' group.id %}">Удалить группу</a>
+  {% endif %}
+
   <table>
     <tr>
       <th>Студент</th>
@@ -20,4 +26,5 @@
       </tr>
     {% endfor %}
   </table>
+
 {% endblock %}

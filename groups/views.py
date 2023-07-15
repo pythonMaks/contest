@@ -44,3 +44,24 @@ def view_group(request, group_id):
         students_grades.append((student, grades))
 
     return render(request, 'groups/view_group.html', {'group': group, 'students_grades': students_grades})
+
+
+@login_required
+def edit_group(request, group_id):
+    group = get_object_or_404(Group, id=group_id, professor=request.user)
+    if request.method == 'POST':
+        form = GroupForm(request.POST, instance=group)
+        if form.is_valid():
+            form.save()
+            return redirect('view_group', group_id=group.id)
+    else:
+        form = GroupForm(instance=group)
+    return render(request, 'groups/edit_group.html', {'form': form, 'group': group})
+
+@login_required
+def delete_group(request, group_id):
+    group = get_object_or_404(Group, id=group_id, professor=request.user)
+    if request.method == 'POST':
+        group.delete()
+        return redirect('groups')
+    return render(request, 'groups/confirm_delete.html', {'group': group})
