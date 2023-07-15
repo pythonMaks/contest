@@ -20,7 +20,7 @@
       {% for task in group.tasks.all %}
         <th>{{ task.name }}</th>
       {% endfor %}
-      <th>Average</th>
+      <th style="width:10%">Средний балл</th>
     </tr>
     {% for student, grades in students_grades %}
       <tr>
