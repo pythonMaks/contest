@@ -16,8 +16,10 @@
       </tr>
     {% endfor %}
     <tr>
-      <th>Среднее</th>
-      <td>{{ tasks_grades.values|average }}</td>
+        <tr>
+            <th>Средний балл</th>
+            <td>{{ average_grade }}</td>
+          </tr>
     </tr>
   </table>
 

@@ -86,5 +86,5 @@ def view_group_student(request, group_id):
         task_grade = TaskGrade.objects.filter(student=request.user, task=task).first()
         grade = task_grade.grade if task_grade else 0
         tasks_grades.append((task, grade))
-
-    return render(request, 'groups/view_group_student.html', {'group': group, 'tasks_grades': tasks_grades})
+    average_grade = sum(grade for task, grade in tasks_grades) / len(tasks_grades) if tasks_grades else 0
+    return render(request, 'groups/view_group_student.html', {'group': group, 'tasks_grades': tasks_grades, 'average_grade': average_grade})
