@@ -36,3 +36,23 @@
   </table>
 
 {% endblock %}
+{% block extra_js %}
+<script>
+function toggleTableClass() {
+  var table = document.getElementById("myTable");
+  if (table) {
+      if (localStorage.getItem("theme") === "dark") {
+          table.classList.remove('table');
+          table.classList.add('table-dark');
+      } else {
+          table.classList.remove('table-dark');
+          table.classList.add('table');
+      }
+  }
+}
+
+window.addEventListener("DOMContentLoaded", function() {
+  toggleTableClass();
+});
+</script>
+{% endblock %}
