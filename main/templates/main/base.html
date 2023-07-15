@@ -98,28 +98,39 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.0/js/bootstrap.bundle.min.js"></script>
     <script>
       function toggleTheme() {
-        var theme = document.getElementById("theme");
-        
-        if (theme.getAttribute("href") === "{% static 'css/styles-light.css' %}") {
-          theme.setAttribute("href", "{% static 'css/styles-dark.css' %}");
-          localStorage.setItem("theme", "dark");
-        } else {
-          theme.setAttribute("href", "{% static 'css/styles-light.css' %}");
-          localStorage.setItem("theme", "light");
-        }
+          var theme = document.getElementById("theme");
+          var table = document.getElementById("myTable"); // убедитесь, что ваша таблица имеет id="myTable"
+          
+          if (theme.getAttribute("href") === "{% static 'css/styles-light.css' %}") {
+              theme.setAttribute("href", "{% static 'css/styles-dark.css' %}");
+              table.classList.remove('table');
+              table.classList.add('table-dark');
+              localStorage.setItem("theme", "dark");
+          } else {
+              theme.setAttribute("href", "{% static 'css/styles-light.css' %}");
+              table.classList.remove('table-dark');
+              table.classList.add('table');
+              localStorage.setItem("theme", "light");
+          }
       }
-    
+  
       var savedTheme = localStorage.getItem("theme");
       if (savedTheme) {
-        var theme = document.getElementById("theme");
-        
-        if (savedTheme === "dark") {
-          theme.setAttribute("href", "{% static 'css/styles-dark.css' %}");
-        } else {
-          theme.setAttribute("href", "{% static 'css/styles-light.css' %}");
-        }
+          var theme = document.getElementById("theme");
+          var table = document.getElementById("myTable");
+          
+          if (savedTheme === "dark") {
+              theme.setAttribute("href", "{% static 'css/styles-dark.css' %}");
+              table.classList.remove('table');
+              table.classList.add('table-dark');
+          } else {
+              theme.setAttribute("href", "{% static 'css/styles-light.css' %}");
+              table.classList.remove('table-dark');
+              table.classList.add('table');
+          }
       }
-    </script>
+  </script>
+  
 
 
     {% block extra_js %}{% endblock %}
