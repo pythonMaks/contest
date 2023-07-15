@@ -23,3 +23,5 @@ def home(request):
  
 def about(request):
 	return render(request, 'main/about.html', {'title': 'О клубе Python Bytes'})
+def oshibka(request):
+	return render(request, 'main/404.html', )
