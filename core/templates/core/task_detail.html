@@ -30,11 +30,7 @@
     </button>
   </form>
   <br>
-  <form method="POST" action="{% url 'delete_task' task.pk %}">
-    {% csrf_token %}
-    <button type="submit" class="btn btn-danger btn-sm">
-      Удалить задачу
-    </button>    
+  <a href="{% url 'delete_task' task.slug %}" class="btn btn-secondary">Удалить задачу</a>
   </form>
 </div>
 {% endif %}

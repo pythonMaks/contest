@@ -21,7 +21,7 @@ urlpatterns = [
 
     path('catalog/<int:pk>/', cat_views.MyDetailView.as_view(), name='mydetail'),
 	path('', include('main.urls')),
-    path('delete-task/<int:pk>/', user_views.delete_task, name='delete_task'),
+    path('delete-task/<slug:slug>/', user_views.delete_task, name='delete_task'),
     path('', include('core.urls')),
     path('', include('groups.urls')),
     
