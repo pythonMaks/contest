@@ -1,0 +1,23 @@
+{% extends 'main/base.html' %}
+{% load my_extras %}
+{% block content %}
+  <h1>Группа: {{ group.name }}</h1>
+  
+  <table>
+    <tr>
+      <th>Задача</th>
+      <th>Оценка</th>
+    </tr>
+    {% for task, grade in tasks_grades %}
+      <tr>
+        <td>{{ task.name }}</td>
+        <td>{{ grade }}</td>
+      </tr>
+    {% endfor %}
+    <tr>
+      <th>Среднее</th>
+      <td>{{ tasks_grades.values|average }}</td>
+    </tr>
+  </table>
+
+{% endblock %}

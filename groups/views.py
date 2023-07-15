@@ -24,6 +24,12 @@ def view_groups(request):
     groups = Group.objects.filter(professor=request.user)
     return render(request, 'groups/groups.html', {'groups': groups})
 
+@login_required
+def view_student_groups(request):
+    # выбираем группы, в которых текущий пользователь является студентом
+    groups = Group.objects.filter(students=request.user)
+    return render(request, 'groups/student_groups.html', {'groups': groups})
+
 
 
 
@@ -65,3 +71,20 @@ def delete_group(request, group_id):
         group.delete()
         return redirect('groups')
     return render(request, 'groups/confirm_delete.html', {'group': group})
+
+
+@login_required
+def view_group_student(request, group_id):
+    group = get_object_or_404(Group, id=group_id)
+
+    # проверка, что студент принадлежит к группе
+    if request.user not in group.students.all():
+        return redirect('groups')
+
+    tasks_grades = []
+    for task in group.tasks.all():
+        task_grade = TaskGrade.objects.filter(student=request.user, task=task).first()
+        grade = task_grade.grade if task_grade else 0
+        tasks_grades.append((task, grade))
+
+    return render(request, 'groups/view_group_student.html', {'group': group, 'tasks_grades': tasks_grades})
