@@ -1,0 +1,21 @@
+{% extends "main/base.html" %}
+{% load static %}
+{% block content %}
+<div class="container mt-5">
+  <h1 class="text-center">404: Страница не найдена</h1>
+  <div class="d-flex justify-content-center align-items-center">
+    <img src="{% static 'images/404_error.png' %}" alt="404" style="width: 30%; height: auto;">
+  </div>
+  <h3 class="text-center mt-4">Похоже, что эта страница стала непослушной!</h3>
+  <p class="text-center">
+    Возможно, она осознала, что состоит всего лишь из 0 и 1 и решила уйти в отпуск.
+    <br>
+    Или, может быть, она сбежала, чтобы не превратиться в спагетти-код.
+    <br>
+    В любом случае, она точно не здесь.
+  </p>
+  <p class="text-center">
+    Давайте вернем вас на правильный путь! Нажмите <a href="{% url 'blog-home' %}">сюда</a>, чтобы вернуться на главную страницу.
+  </p>
+</div>
+{% endblock %}
