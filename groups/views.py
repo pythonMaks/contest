@@ -53,7 +53,7 @@ def edit_group(request, group_id):
         form = GroupForm(request.POST, instance=group, user=request.user)
         if form.is_valid():
             form.save()
-            return redirect('view_group', group_id=group.id)
+            return redirect('group_detail', group_id=group.id)
     else:
         form = GroupForm(instance=group, user=request.user)
     return render(request, 'groups/edit_group.html', {'form': form, 'group': group})
