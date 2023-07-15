@@ -88,7 +88,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'contest.wsgi.application'
 
-TEMPLATE_404 = '404.html'
+
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
