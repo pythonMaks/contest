@@ -48,7 +48,7 @@ def view_group(request, group_id):
             task_grade = TaskGrade.objects.filter(student=student, task=task).first()
             grades[task] = task_grade.grade if task_grade else 0
         students_grades.append((student, grades)) 
-    submissions = Submission.objects.filter(task__in=group.tasks.all(), student__username__in=[student.username for student, _ in students_grades])
+    submissions = Submission.objects.filter(task__in=group.tasks.all())
     return render(request, 'groups/view_group.html', {'group': group, 'students_grades': students_grades, 'submissions': submissions})
 
 
