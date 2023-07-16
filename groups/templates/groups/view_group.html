@@ -26,10 +26,11 @@
     {% for student, grades in students_grades %}
       <tr>
         <td>{{ student.username }}</td>
-        <td>{{ grades.values|average }}</td>
+        
         {% for task, grade in grades.items %}
             <td><a href="{% url 'submission_list' task.id student.username %}">{{ grade }}</a></td>       
-        {% endfor %}        
+        {% endfor %}   
+        <td>{{ grades.values|average }}</td>     
       </tr>
     {% endfor %}
   </table>
