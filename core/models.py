@@ -74,3 +74,7 @@ class Submission(models.Model):
 
     def __str__(self):
         return f'{self.id} - {self.task.name} - {self.get_status_display()}'
+
+    @classmethod
+    def student_has_submission_for(cls, student, task):
+        return cls.objects.filter(task=task, student=student).exists()
