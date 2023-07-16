@@ -4,4 +4,4 @@ register = template.Library()
 
 @register.filter
 def average(value_list):
-    return sum(value_list) / len(value_list) if value_list else 0
+    return round((sum(value_list) / len(value_list)), 2) if value_list else 0

@@ -3,7 +3,7 @@ from .forms import GroupForm
 from .models import Group, TaskGrade
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404
-
+from core.models import Submission
 
 @login_required
 def create_group(request):
@@ -48,8 +48,8 @@ def view_group(request, group_id):
             task_grade = TaskGrade.objects.filter(student=student, task=task).first()
             grades[task] = task_grade.grade if task_grade else 0
         students_grades.append((student, grades)) 
-
-    return render(request, 'groups/view_group.html', {'group': group, 'students_grades': students_grades})
+    submissions = Submission.objects.filter(task__in=group.tasks.all(), student__username__in=[student.username for student, _ in students_grades])
+    return render(request, 'groups/view_group.html', {'group': group, 'students_grades': students_grades, 'submissions': submissions})
 
 
 @login_required

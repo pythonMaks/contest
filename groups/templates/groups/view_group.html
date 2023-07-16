@@ -28,8 +28,11 @@
         <td>{{ student.username }}</td>
         <td>{{ grades.values|average }}</td>
         {% for task, grade in grades.items %}
-
-          <td><a href="{% url 'submission_list' task.id student.username %}">{{ grade }}</a></td>
+        {% if submissions.filter(task=task, student=student).exists %}
+        <td><a href="{% url 'submission_list' task.id student.username %}">{{ grade }}</a></td>
+      {% else %}
+        <td>{{ grade }}</td>
+      {% endif %}
         {% endfor %}
         
       </tr>
