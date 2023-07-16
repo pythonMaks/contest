@@ -47,7 +47,7 @@ def view_group(request, group_id):
         for task in group.tasks.all():
             task_grade = TaskGrade.objects.filter(student=student, task=task).first()
             grades[task] = task_grade.grade if task_grade else 0
-        students_grades.append((student, grades))
+        students_grades.append((student, grades)) 
 
     return render(request, 'groups/view_group.html', {'group': group, 'students_grades': students_grades})
 

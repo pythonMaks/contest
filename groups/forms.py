@@ -7,12 +7,14 @@ class GroupForm(forms.ModelForm):
     students = forms.ModelMultipleChoiceField(
         queryset=User.objects.filter(choice='1'),  # выбираем только студентов
         widget=forms.CheckboxSelectMultiple,
-        required=True
+        required=True,
+        label='Студенты'
     )
     tasks = forms.ModelMultipleChoiceField(
         queryset=Task.objects.none(),  # пустой queryset по умолчанию
         widget=forms.CheckboxSelectMultiple,
-        required=True
+        required=True,
+        label='Задачи'
     )
 
     class Meta:

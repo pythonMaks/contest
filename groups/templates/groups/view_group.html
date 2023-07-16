@@ -16,7 +16,7 @@
 
   <table class="table table-bordered" id="myTable">
     <tr>
-      <th>Студент</th>
+      <th style="width:10%">Студент</th>
       <th style="width:10%">Средний балл</th>
       {% for task in group.tasks.all %}
         <th>{{ task.name }}</th>
@@ -27,8 +27,9 @@
       <tr>
         <td>{{ student.username }}</td>
         <td>{{ grades.values|average }}</td>
-        {% for grade in grades.values %}
-          <td>{{ grade }}</td>
+        {% for grade in grades.items %}
+
+          <td><a href="{% url 'submission_list' grade[0] student.username %}">{{ grade[1] }}</a></td>
         {% endfor %}
         
       </tr>
