@@ -19,8 +19,11 @@
 
   <h2>Код:</h2>
   <pre>{{ submission.code }}</pre> 
-
+  {% if request.user.username == submission.task.prepod %}
+  <h2>Вывод студента:</h2>
+  {% else %}
   <h2>Ваш вывод:</h2>
+  {% endif %}
 <pre>{% for i in output %}
 {{ i }}
 {% endfor %}
