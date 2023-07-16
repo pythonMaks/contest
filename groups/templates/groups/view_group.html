@@ -16,12 +16,12 @@
 
   <table class="table table-bordered" id="myTable">
     <tr>
-      <th style="width:10%">Студент</th>
-      <th style="width:10%">Средний балл</th>
+      <th style="width:15%">Студент</th>
+      
       {% for task in group.tasks.all %}
         <th>{{ task.name }}</th>
       {% endfor %}
-     
+      <th style="width:10%">Средний балл</th>
     </tr>
     {% for student, grades in students_grades %}
       <tr>
