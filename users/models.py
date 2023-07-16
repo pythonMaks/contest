@@ -4,6 +4,7 @@ from django.contrib.contenttypes.models import ContentType
 from contest import settings
 from django.utils.text import slugify
 from django.urls import reverse
+from core.models import Submission
 # group = Group.objects.create(name='Teachers')
 # permission = Permission.objects.get(codename='can_create_task')
 # group.permissions.add(permission)
@@ -31,6 +32,8 @@ class User(AbstractUser):
     def get_absolute_url(self):
         return reverse("mydetail", kwargs={"slug": self.slug})    
 
+    def has_submission_for(self, task):
+        return Submission.objects.filter(task=task, student=self.username).exists()
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
