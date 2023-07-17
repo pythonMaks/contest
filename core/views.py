@@ -164,7 +164,7 @@ def execute_code(code, language, input_data, user):
     if 'import' in code:
         return 'Import forbidden', ''
     client = docker.from_env()
-    #logger = logging.getLogger(__name__)
+    
     volume_name = user
     try:
         volume = client.volumes.get(volume_name)
@@ -202,7 +202,8 @@ def execute_code(code, language, input_data, user):
                                       detach=True, working_dir="/code")
 
     container.wait()
-
+    logger = logging.getLogger(__name__)
+    logger.info(volume)
     stdout = container.logs(stdout=True, stderr=False)
     stderr = container.logs(stdout=False, stderr=True)
 
