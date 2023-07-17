@@ -160,12 +160,12 @@ def task_detail(request, slug):
 #'python', '-c'
 #'node', '-e'
 
-def execute_code(code, language, input_data):
+def execute_code(code, language, input_data, user):
     if 'import' in code:
         return 'Import forbidden', ''
     client = docker.from_env()
     #logger = logging.getLogger(__name__)
-    volume_name = "my_code_execution_volume_"
+    volume_name = user
     try:
         volume = client.volumes.get(volume_name)
     except docker.errors.NotFound:
@@ -251,7 +251,7 @@ def submission_detail(request, pk):
         expected_output = test_case.output.strip()
         #logger.info(f'1 {expected_output}')       
         if input_data and expected_output:   
-            output_i, error_i = execute_code(submission.code, task.language, input_data)
+            output_i, error_i = execute_code(submission.code, task.language, input_data, request.user.username)
             try:
                 #logger.info(f'2 {output_i}')
                 #logger.info(f'3 {expected_output}')                
