@@ -9,7 +9,7 @@
   background: url('../images/lighttheme.svg') no-repeat center center fixed;
     background-size: cover;
   background-position: center;
-  height: 100vh;
+  
   z-index: 1;
   }
 body {

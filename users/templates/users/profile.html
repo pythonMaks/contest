@@ -18,13 +18,13 @@
                     <form method="post">
                         {% csrf_token %}
                         {% for field in password_form %}
-                            {% if field.name != 'password' %}
+                            {% if field.name != 'new_password1' and field.name != 'new_password2' %}
                                 {{ field|as_crispy_field }}
                             {% else %}
                                 <div class="form-group">
                                     {{ field|as_crispy_field }}
-                                    <input type="checkbox" id="togglePassword">
-                                    <label for="togglePassword">Показать пароль</label>
+                                    <input type="checkbox" class="toggle-password" data-input="#id_{{ field.name }}">
+                                    <label>Показать пароль</label>
                                 </div>
                             {% endif %}
                         {% endfor %}
@@ -37,12 +37,14 @@
 {% endblock content %}
 {% block extra_js %}
     <script>
-        const togglePassword = document.querySelector('#togglePassword');
-        const password = document.querySelector('#id_password');
+        const toggles = document.querySelectorAll('.toggle-password');
 
-        togglePassword.addEventListener('change', function (e) {
-            const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
-            password.setAttribute('type', type);
+        toggles.forEach(toggle => {
+            const input = document.querySelector(toggle.dataset.input);
+            toggle.addEventListener('change', function (e) {
+                const type = input.getAttribute('type') === 'password' ? 'text' : 'password';
+                input.setAttribute('type', type);
+            });
         });
     </script>
 {% endblock %}
