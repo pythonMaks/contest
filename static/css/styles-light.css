@@ -7,7 +7,7 @@
  }
 .bodybody {
   background: url('../images/lighttheme.svg') no-repeat center center fixed;
-  background-size: cover;
+  background-size: contain;
   position: absolute;
   top: 0;
   right: 0;
