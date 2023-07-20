@@ -2,45 +2,55 @@
 {% load crispy_forms_tags %}
 {% block content %}
 
-    <div class="content-section myid">
-        <form method="POST">
-            {% csrf_token %}
-            <fieldset class="form-group">
-                <legend class="border-bottom mb-4">Добро пожаловать!</legend>
-                {% for field in form %}
-                    {% if field.name != 'password1' and field.name != 'show_password' %}
-                        {{ field|as_crispy_field }}
-                    {% endif %}
-                {% endfor %}
-                <div class="form-group">
-                    {{ form.password1|as_crispy_field }}
-                    {{ form.show_password|as_crispy_field }}
-                </div>
-            </fieldset>
+<div class="content-section myid">
+    <form method="POST">
+        {% csrf_token %}
+        <fieldset class="form-group">
+            <legend class="border-bottom mb-4">Добро пожаловать!</legend>
             <div class="form-group">
-                <button class="btn btn-outline-info" type="submit">Регистрация</button>
+                {{ form.username|as_crispy_field }}
             </div>
-        </form>
-        <div class="border-top pt-3">
-            <small class="text-muted">
-                Уже есть аккаунт? <a class="ml-2" href="#">Вход</a>
-            </small>
+            <div class="form-group">
+                {{ form.password1|as_crispy_field }}
+                {{ form.show_password1|as_crispy_field }}
+            </div>
+            <div class="form-group">
+                {{ form.password2|as_crispy_field }}
+                {{ form.show_password2|as_crispy_field }}
+            </div>
+            
+            <div class="form-group">
+                {{ form.date|as_crispy_field }}
+            </div>
+        </fieldset>
+        <div class="form-group">
+            <button class="btn btn-outline-info" type="submit">Регистрация</button>
         </div>
+    </form>
+    <div class="border-top pt-3">
+        <small class="text-muted">
+            Уже есть аккаунт? <a class="ml-2" href="#">Вход</a>
+        </small>
     </div>
-   
+</div>
 
 {% endblock content %}
 
 {% block extra_js %}
 <script>
-    const togglePassword = document.querySelector('#togglePassword');
-    const password = document.querySelector('#password');
+    const togglePassword1 = document.querySelector('#id_show_password1');
+    const password1 = document.querySelector('#id_password1');
+    const togglePassword2 = document.querySelector('#id_show_password2');
+    const password2 = document.querySelector('#id_password2');
 
-    togglePassword.addEventListener('change', function (e) {
-        // Переключение типа атрибута
-        const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
-        password.setAttribute('type', type);
-        // Переключение вида глаза
-        this.classList.toggle('fa-eye-slash');
+    togglePassword1.addEventListener('change', function (e) {
+        const type = password1.getAttribute('type') === 'password' ? 'text' : 'password';
+        password1.setAttribute('type', type);
     });
-</script>{% endblock %}
+
+    togglePassword2.addEventListener('change', function (e) {
+        const type = password2.getAttribute('type') === 'password' ? 'text' : 'password';
+        password2.setAttribute('type', type);
+    });
+</script>
+{% endblock %}

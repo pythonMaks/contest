@@ -23,13 +23,13 @@ def validate_latin_chars(value):
 class UserRegisterForm(UserCreationForm):    
     date = forms.DateField(widget=SelectDateWidget( attrs={'class': 'my-widget-class'}, years=range(timezone.now().year - 100, timezone.now().year + 1)),
                                  label='Дата рождения', initial=default_date)
-    show_password = forms.BooleanField(required=False)
+    show_password1 = forms.BooleanField(required=False, label='Показать пароль')
+    show_password2 = forms.BooleanField(required=False, label='Показать пароль')
     username = forms.CharField(validators=[validate_latin_chars])
     class Meta:
         model = User                
-        fields = ['username', 'password1', 'password2', 'date', 'show_password']
-        
-    
+        fields = ['username', 'password1', 'show_password1', 'password2', 'show_password2', 'date']
+
     
 class UserProfileForm(forms.ModelForm):
     class Meta:

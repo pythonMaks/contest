@@ -64,8 +64,8 @@
   </nav>
        
     
-    <main role="main" class="container">
-      <div class="row">
+    <main>
+      <div>
         
           {% if messages %}
         	{% for message in messages %}
@@ -76,19 +76,7 @@
           {% endif %}
           {% block content %}{% endblock %}
      
-        <!-- <div class="col-md-4">
-          <div class="content-section">
-            <h3>Разделы</h3>
-            <p class='text-muted'>новости и события
-              <ul class="list-group">
-                <li class="list-group-item list-group-item-light">Новые записи</li>
-                <li class="list-group-item list-group-item-light">Объявления</li>
-                <li class="list-group-item list-group-item-light">Соревнования</li>
-                <li class="list-group-item list-group-item-light">Встречи участников</li>
-              </ul>
-            </p>
-          </div>
-        </div> -->
+       
       </div>
 
     
