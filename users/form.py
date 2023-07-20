@@ -7,19 +7,30 @@ from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit, Layout, Fieldset
 from django import forms
 from datetime import datetime, timedelta
+from django.core.exceptions import ValidationError
+from django.utils.translation import gettext_lazy as _
+import re
 
 default_date = datetime.now() - timedelta(days=365 * 18)
 
+def validate_latin_chars(value):
+    if not re.match(r'^[a-zA-Z]+$', value):
+        raise ValidationError(
+            _("Имя пользователя необходимо писать латинскими буквами."),
+            code='invalid'
+        )
+        
 class UserRegisterForm(UserCreationForm):    
     date = forms.DateField(widget=SelectDateWidget( attrs={'class': 'my-widget-class'}, years=range(timezone.now().year - 100, timezone.now().year + 1)),
                                  label='Дата рождения', initial=default_date)
-    
-    
+    show_password = forms.BooleanField(required=False)
+    username = forms.CharField(validators=[validate_latin_chars])
     class Meta:
         model = User                
-        fields = ['username', 'password1', 'password2', 'date']
+        fields = ['username', 'password1', 'password2', 'date', 'show_password']
         
-
+    
+    
 class UserProfileForm(forms.ModelForm):
     class Meta:
         model = User

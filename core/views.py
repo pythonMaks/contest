@@ -75,6 +75,9 @@ def task_list(request):
     sort = request.GET.get('sort', 'name')  # получаем параметр сортировки из GET-запроса
     if sort == 'prepod':
         tasks = Task.objects.all().order_by('prepod')  # сортируем по полю "prepod"
+    elif sort == 'difficulty':
+        tasks = Task.objects.all().order_by('difficulty')  # сортируем по полю "difficulty"
+    
     else:
         tasks = Task.objects.all().order_by('name')  # сортируем по умолчанию по полю "name"
     q = request.GET.get('q')
@@ -202,8 +205,8 @@ def execute_code(code, language, input_data, user):
                                       detach=True, working_dir="/code")
 
     container.wait()
-    logger = logging.getLogger(__name__)
-    logger.info(volume)
+    #logger = logging.getLogger(__name__)
+    #logger.info(volume)
     stdout = container.logs(stdout=True, stderr=False)
     stderr = container.logs(stdout=False, stderr=True)
 

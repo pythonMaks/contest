@@ -6,7 +6,17 @@
             {% csrf_token %}
             <fieldset class="form-group">
                 <legend class="border-bottom mb-4">Вход</legend>
-                <h5 id="register">{{ form|crispy }}</h5>
+                {% for field in form %}
+                    {% if field.name != 'password' %}
+                        {{ field|as_crispy_field }}
+                    {% else %}
+                        <div class="form-group">
+                            {{ field|as_crispy_field }}
+                            <input type="checkbox" id="togglePassword">
+                            <label for="togglePassword">Показать пароль</label>
+                        </div>
+                    {% endif %}
+                {% endfor %}
             </fieldset>
             <div class="form-group">
                 <button class="btn btn-outline-info" type="submit">Войти</button>
@@ -19,3 +29,14 @@
         </div>
     </div>
 {% endblock content %}
+{% block javascript %}
+    <script>
+        const togglePassword = document.querySelector('#togglePassword');
+        const password = document.querySelector('#id_password');
+
+        togglePassword.addEventListener('change', function (e) {
+            const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+            password.setAttribute('type', type);
+        });
+    </script>
+{% endblock javascript %}
