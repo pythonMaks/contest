@@ -8,9 +8,7 @@
 .bodybody {
   background: url('../images/darktheme.svg') no-repeat center center fixed;
  
-  background-size: cover;
-  background-position: center;
-  width: 100%;
+  background-size: 100% 100%;
   z-index: 1;
 
   }
