@@ -26,7 +26,14 @@ body {
   background-color: #333333;
   color: #ffffff;
   }
-  
+body.special-background {
+    background: url('../images/darktheme.svg') no-repeat center center fixed;
+    background-size: cover;
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    z-index: 1;
+} 
   pre {
     white-space: pre-wrap;
     word-wrap: break-word;

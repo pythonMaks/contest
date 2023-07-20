@@ -25,7 +25,14 @@ body {
     background-color: #f8f8f8;
     color: #333;
   }
-  
+  body.special-background {
+    background: url('../images/lighttheme.svg') no-repeat center center fixed;
+    background-size: cover;
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    z-index: 1;
+}
   /* Header Styles */
   header {
     background-color: #ffffff;
