@@ -2,24 +2,47 @@
 {% load crispy_forms_tags %}
 {% block content %}
     <div class="content-section">
-      <div class="media">
-        <img class="rounded-circle account-img" src="{{ user.profile.image.url }}">
-        <div class="media-body">
-          <h1>{{ user.username }}</h1>
-          
-    
-    <div class="row">
-      <div class="col-sm-6">
-        {% crispy user_form %}
-      </div>  
-    </div>    
-      <hr>
-    <h2>Изменить пароль</h2>
-            <div class="col-sm-6">
-          <form method="post">
-            {% csrf_token %}
-            {{ password_form|crispy }}
-            <input type="submit" class="btn btn-primary" name="password_change" value="Изменить пароль">
-          </form>
+        <div class="media">
+            <img class="rounded-circle account-img" src="{{ user.profile.image.url }}">
+            <div class="media-body">
+                <h1>{{ user.username }}</h1>
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        {% crispy user_form %}
+                    </div>
                 </div>
+                <hr>
+                <h2>Изменить пароль</h2>
+                <div class="col-sm-6">
+                    <form method="post">
+                        {% csrf_token %}
+                        {% for field in password_form %}
+                            {% if field.name != 'password' %}
+                                {{ field|as_crispy_field }}
+                            {% else %}
+                                <div class="form-group">
+                                    {{ field|as_crispy_field }}
+                                    <input type="checkbox" id="togglePassword">
+                                    <label for="togglePassword">Показать пароль</label>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                        <input type="submit" class="btn btn-primary" name="password_change" value="Изменить пароль">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock content %}
+{% block extra_js %}
+    <script>
+        const togglePassword = document.querySelector('#togglePassword');
+        const password = document.querySelector('#id_password');
+
+        togglePassword.addEventListener('change', function (e) {
+            const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+            password.setAttribute('type', type);
+        });
+    </script>
+{% endblock %}

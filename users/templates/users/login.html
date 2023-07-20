@@ -29,7 +29,7 @@
         </div>
     </div>
 {% endblock content %}
-{% block javascript %}
+{% block extra_js %}
     <script>
         const togglePassword = document.querySelector('#togglePassword');
         const password = document.querySelector('#id_password');
@@ -39,4 +39,4 @@
             password.setAttribute('type', type);
         });
     </script>
-{% endblock javascript %}
+{% endblock %}
