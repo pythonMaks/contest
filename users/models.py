@@ -10,7 +10,7 @@ from core.models import Submission
 # group.permissions.add(permission)
 
 class User(AbstractUser):
-    choice = models.CharField( max_length=150, blank=True, verbose_name='Статус', help_text='1 - Студент, 2 - Преподаватель, 3 - Администратор')
+    choice = models.CharField( max_length=150, default=1, blank=True, verbose_name='Статус', help_text='1 - Студент, 2 - Преподаватель, 3 - Администратор')
     date = models.DateField(null=True, blank=True, verbose_name='Дата рождения')
     slug = models.SlugField(null=False, blank=True, unique=True)
     prepopulated_fields = {'slug': ('username',)}
@@ -22,7 +22,8 @@ class User(AbstractUser):
         if self.choice == '3':
             # assign permission to manage users
             self.is_staff = True 
-            self.is_superuser = True           
+            self.is_superuser = True  
+                 
            
         super().save(*args, **kwargs)
         

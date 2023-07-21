@@ -44,6 +44,7 @@ LOGGING = {
 
 INSTALLED_APPS = [  
     'groups',
+    'django_select2',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
