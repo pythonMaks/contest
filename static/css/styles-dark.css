@@ -17,6 +17,21 @@
   z-index: 100;
 
   }
+  .select2-results__option {
+    background-color: #222; /* более темный фон */
+    color: #ddd; /* более светлый текст */
+}
+
+.select2-results__option--highlighted {
+    background-color: #555; /* более темный фон для выделенного элемента */
+    color: #ddd; /* более светлый текст для выделенного элемента */
+}
+
+.select2-selection {
+    background-color: #222; /* более темный фон для области выбора */
+    color: #ddd; /* более светлый текст для области выбора */
+}
+
 body {    
   
   -webkit-background-size: cover;
