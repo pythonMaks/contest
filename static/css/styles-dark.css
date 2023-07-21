@@ -18,20 +18,19 @@
 
   }
   .select2-results__option {
-    background-color: rgb(38, 0, 255); /* более темный фон */
-    color: rgb(238, 255, 0); /* более светлый текст */
+    background-color: #222 !important;
+    color: #ddd !important;
 }
 
 .select2-results__option--highlighted {
-    background-color: rgb(0, 255, 34); /* более темный фон для выделенного элемента */
-    color: rgb(253, 0, 0); /* более светлый текст для выделенного элемента */
+    background-color: rgb(10, 7, 7) !important;
+    color: #ddd !important;
 }
 
 .select2-selection {
-    background-color: rgb(247, 0, 255); /* более темный фон для области выбора */
-    color: rgb(0, 162, 255); /* более светлый текст для области выбора */
+    background-color: #222 !important;
+    color: #ddd !important;
 }
-
 body {    
   
   -webkit-background-size: cover;
