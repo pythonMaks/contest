@@ -7,13 +7,13 @@ from django_select2.forms import Select2MultipleWidget
 class GroupForm(forms.ModelForm):
     students = forms.ModelMultipleChoiceField(
         queryset=User.objects.filter(choice='1'),  # выбираем только студентов
-        widget=Select2MultipleWidget,    
+        widget=Select2MultipleWidget(attrs={'class': 'select2'}),    
         required=True,
         label='Студенты'
     )
     tasks = forms.ModelMultipleChoiceField(
         queryset=Task.objects.none(),  # пустой queryset по умолчанию
-        widget=Select2MultipleWidget,        
+        widget=Select2MultipleWidget(attrs={'class': 'select2'}),        
         required=True,
         label='Задачи'
     )

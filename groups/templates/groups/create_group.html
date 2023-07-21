@@ -10,5 +10,12 @@
   <button type="submit" class="btn btn-primary">Создать</button>
 </form>
 
+{% endblock %}
 
-{% endblock %} 
+{% block extra_js %}
+<script>
+$(document).ready(function() {
+    $('.select2').select2();
+});
+</script>
+{% endblock %}
