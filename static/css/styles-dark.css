@@ -17,20 +17,21 @@
   z-index: 100;
 
   }
-  .select2-results__option {
+  body .select2-container .select2-results__option {
     background-color: #222 !important;
     color: #ddd !important;
 }
 
-.select2-results__option--highlighted {
+body .select2-container .select2-results__option--highlighted {
     background-color: rgb(10, 7, 7) !important;
     color: #ddd !important;
 }
 
-.select2-selection {
+body .select2-container .select2-selection {
     background-color: #222 !important;
     color: #ddd !important;
 }
+
 body {    
   
   -webkit-background-size: cover;
