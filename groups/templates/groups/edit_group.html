@@ -8,3 +8,10 @@
     <button type="submit" class="btn btn-primary">Сохранить</button>
   </form>
 {% endblock %}
+{% block extra_js %}
+<script>
+$(document).ready(function() {
+    $('.select2').select2();
+});
+</script>
+{% endblock %}
