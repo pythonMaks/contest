@@ -1,5 +1,10 @@
 {% extends 'main/base.html' %}
 {% load crispy_forms_tags %}
+
+{% block extra_css %}
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
+{% endblock %}
+
 {% block content %}
 
 <h1>Новая группа</h1> 
@@ -13,6 +18,8 @@
 {% endblock %}
 
 {% block extra_js %}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
 <script>
 $(document).ready(function() {
     $('.select2').select2();
