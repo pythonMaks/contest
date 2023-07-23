@@ -1,5 +1,5 @@
 from telegram import Update, ForceReply
-from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackContext
+from telegram.ext import Updater, CommandHandler, MessageHandler, filters, CallbackContext
 from users.models import User
 from telegram import Bot
 
@@ -33,7 +33,7 @@ def main() -> None:
 
     dispatcher.add_handler(CommandHandler("start", start))
     dispatcher.add_handler(CommandHandler("change", change))
-    dispatcher.add_handler(MessageHandler(Filters.text & ~Filters.command, handle_code))
+    dispatcher.add_handler(MessageHandler(filters.text & ~filters.command, handle_code))
 
     updater.start_polling()
 
