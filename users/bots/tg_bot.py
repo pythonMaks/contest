@@ -27,7 +27,7 @@ def change(update: Update, context: CallbackContext) -> None:
     update.message.reply_text('Введите новый секретный код', reply_markup=ForceReply())
     
 def main() -> None:
-    updater = Updater("6503653218:AAEq4laa7R5Zf7pQUYJhrEWcmf7HrVriGnE", use_context=True)
+    updater = Updater("6503653218:AAEq4laa7R5Zf7pQUYJhrEWcmf7HrVriGnE")
 
     dispatcher = updater.dispatcher
 
