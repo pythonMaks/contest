@@ -21,6 +21,12 @@ async def handle_change(message: types.Message):
 async def handle_code(message: types.Message):
     user_message = message.text
     chat_id = message.chat.id
+    try:
+        old_user = await sync_to_async(User.objects.get, thread_sensitive=True)(chat_id=chat_id)
+        old_user.chat_id = None
+        await sync_to_async(old_user.save, thread_sensitive=True)()
+    except User.DoesNotExist:
+        pass
 
     try:
         user = await sync_to_async(User.objects.get, thread_sensitive=True)(access_code=user_message)        
