@@ -18,7 +18,10 @@
                     {% if access_code %}
                     <p>Ваш код для активации бота:<h3>{{ access_code }}</h></p>
                     {% else %}
+                    <form method="post">
+                        {% csrf_token %}
                     <input type="submit" class="btn btn-primary" name="generate_code" value="Сгенерировать код">
+                    </form>
                     {% endif %}
                 </div>
                 <div>
