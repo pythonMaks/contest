@@ -6,7 +6,7 @@ from django.shortcuts import get_object_or_404
 from core.models import Submission
 from users.bots.tg_bot import send_telegram_message 
 import asyncio
-
+from asgiref.sync import async_to_sync
 
 @login_required
 def create_group(request):
@@ -19,7 +19,7 @@ def create_group(request):
             form.save_m2m()
             for student in group.students.all():
                 if student.chat_id:
-                    asyncio.create_task(send_telegram_message(student.chat_id, f"Вы были добавлены в группу {group.name} для прохождения контеста!"))
+                    async_to_sync(send_telegram_message)(student.chat_id, f"Вы были добавлены в группу {group.name} для прохождения контеста!")
             return redirect('groups')  # имя URL-шаблона для страницы со списком групп
     else:
         form = GroupForm(user=request.user)
@@ -67,7 +67,7 @@ def edit_group(request, group_id):
             form.save()
             for student in group.students.all():
                 if student.chat_id:
-                    asyncio.create_task(send_telegram_message(student.chat_id, f"Вы были добавлены в группу {group.name} для прохождения контеста!"))
+                    async_to_sync(send_telegram_message)(student.chat_id, f"Вы были добавлены в группу {group.name} для прохождения контеста!")
             return redirect('group_detail', group_id=group.id)
     else:
         form = GroupForm(instance=group, user=request.user)

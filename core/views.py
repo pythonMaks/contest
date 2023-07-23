@@ -15,6 +15,8 @@ import base64
 import logging
 from users.bots.tg_bot import send_telegram_message 
 import asyncio
+from asgiref.sync import async_to_sync
+
 
 @login_required
 def task_create(request):
@@ -296,7 +298,7 @@ def submission_detail(request, pk):
         submission.save()
         professor = User.objects.get(username=submission.prepod)
         if professor.chat_id:  # проверить, что у профессора есть chat_id для оповещений в Telegram
-            asyncio.create_task(send_telegram_message(professor.chat_id, f'Студент {submission.student} успешно решил вашу задачу {submission.task}!'))
+            async_to_sync(send_telegram_message)(professor.chat_id, f'Студент {submission.student} успешно решил вашу задачу {submission.task}!')
     else:
         submission.status = 'WA'
         submission.save()
