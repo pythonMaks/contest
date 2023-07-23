@@ -2,6 +2,7 @@ from aiogram import Bot, types
 from aiogram.dispatcher import Dispatcher
 from aiogram.utils import executor
 from users.models import User
+import asyncio
 
 bot = Bot(token="6503653218:AAEq4laa7R5Zf7pQUYJhrEWcmf7HrVriGnE")
 dp = Dispatcher(bot)
@@ -42,8 +43,6 @@ async def handle_text_message(message: types.Message):
 async def main():
     await dp.start_polling()
 
-# И там где у вас вызывается функция:
-# send_telegram_message(professor.chat_id, f'Студент {submission.student} успешно решил вашу задачу {submission.task}!')
 
-# Замените на:
-# asyncio.create_task(send_telegram_message(professor.chat_id, f'Студент {submission.student} успешно решил вашу задачу {submission.task}!'))
+if __name__ == '__main__':
+    asyncio.run(main())
