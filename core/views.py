@@ -269,7 +269,8 @@ def submission_detail(request, pk):
 
                 output.append(output_i)                
                 passed.append(output_i.splitlines() == expected_output.strip().splitlines())
-
+                submission.output.append(output_i)  # обновление поля output
+                submission.save() 
             except Exception as e:
                 if isinstance(error_i, bytes):
                         encoding = chardet.detect(error_i)['encoding']
@@ -279,6 +280,8 @@ def submission_detail(request, pk):
                         except:
                             pass
                 error.append(error_i)
+                submission.error.append(error_i)  # обновление поля error
+                submission.save()
             except:
                 pass
                         
@@ -321,12 +324,11 @@ def submission_detail(request, pk):
             grade.student = User.objects.get(username=submission.student)
             grade.task = submission.task
             grade.save()
-            if grade.student.chat_id:
-                async_to_sync(send_telegram_message)(grade.student.chat_id, f'Профессор {submission.prepod} поставил вам оценку {grade.grade} за задачу {submission.task}!')
+            
     else:
         form = TaskGradeForm(instance=grade)
         
-    return render(request, 'core/submission_detail.html', {'grade': grade, 'form': form, 'submission': submission, 'tests': tests, 'output': output, 'error': error, 'passed': passed})
+    return redirect('submission', pk=submission.pk)
 
 
 
@@ -352,20 +354,19 @@ def submission(request, pk):
             grade.save()
             if grade.student.chat_id:
                 async_to_sync(send_telegram_message)(grade.student.chat_id, f'Профессор {submission.prepod} поставил вам оценку {grade.grade} за задачу {submission.task}!')
-            return redirect('submission_detail', pk=submission.pk)
+            
     else:
         # Это GET-запрос, отображаем информацию о решении
         form = TaskGradeForm(instance=grade)
 
     test_cases = Test.objects.filter(task=submission.task)
     tests = []
-    output = []
+    output = submission.output  # используем сохраненное поле
     passed = submission.status == 'AC'
-    error = submission.status == 'E'
+    error = submission.error  # используем сохраненное поле
 
     for test_case in test_cases:
         tests.append(test_case)
-        output.append(test_case.output.strip())
 
     return render(request, 'core/submission_detail.html', {
         'grade': grade,

@@ -71,7 +71,8 @@ class Submission(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     student = models.CharField(null=True, max_length=150)
     prepod = models.CharField(null=True, max_length=150)
-
+    output = models.JSONField(default=list, blank=True)
+    error = models.JSONField(default=list, blank=True)
     def __str__(self):
         return f'{self.id} - {self.task.name} - {self.get_status_display()}'
 
