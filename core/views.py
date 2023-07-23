@@ -302,6 +302,10 @@ def submission_detail(request, pk):
     else:
         submission.status = 'WA'
         submission.save()
+    previous_submissions = Submission.objects.filter(task=submission.task, student=submission.student)
+    previous_fails = previous_submissions.filter(status__in=['WA', 'E']).exclude(id=submission.id)
+    if not previous_fails.exists():
+        async_to_sync(send_telegram_message)(professor.chat_id, f'Студент {submission.student} начал работать над вашей задачей {submission.task} и пока что не справился.')
     try:
         grade = TaskGrade.objects.get(student=User.objects.get(username=submission.student), task=submission.task)
     except TaskGrade.DoesNotExist:
@@ -314,6 +318,8 @@ def submission_detail(request, pk):
             grade.student = User.objects.get(username=submission.student)
             grade.task = submission.task
             grade.save()
+            if grade.student.chat_id:
+                async_to_sync(send_telegram_message)(grade.student.chat_id, f'Профессор {submission.prepod} поставил вам оценку {grade.grade} за задачу {submission.task}!')
     else:
         form = TaskGradeForm(instance=grade)
         
