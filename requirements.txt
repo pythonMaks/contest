@@ -11,3 +11,4 @@ whitenoise==6.5.0
 django-appconf==1.0.5
 django-select2==8.1.2
 typing_extensions==4.7.1
+python-telegram-bot==20.4

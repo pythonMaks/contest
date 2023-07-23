@@ -45,7 +45,9 @@ def profile(request):
     return render(request, 'users/profile.html',{'student_submission': student_submission,
                                                 'prepod_task': prepod_task,
                                                 'user_form': user_form,
-                                                'password_form': password_form
+                                                'password_form': password_form,
+                                                'access_code': user.access_code
+                                                
                                                 })
 # @login_required
 # def delete_task(request, pk):

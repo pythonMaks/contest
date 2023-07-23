@@ -4,6 +4,7 @@ from .models import Group, TaskGrade
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404
 from core.models import Submission
+from users.bots.tg_bot import send_telegram_message 
 
 @login_required
 def create_group(request):
@@ -14,6 +15,9 @@ def create_group(request):
             group.professor = request.user
             group.save()
             form.save_m2m()
+            for student in group.students.all():
+                if student.chat_id:
+                    send_telegram_message(student.chat_id, f"Вы были добавлены в группу {group.name} для прохождения контеста!")
             return redirect('groups')  # имя URL-шаблона для страницы со списком групп
     else:
         form = GroupForm(user=request.user)

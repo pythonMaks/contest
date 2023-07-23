@@ -2,7 +2,7 @@
 """Django's command-line utility for administrative tasks."""
 import os
 import sys
-
+from multiprocessing import Process
 
 def main():
     """Run administrative tasks."""
@@ -19,4 +19,7 @@ def main():
 
 
 if __name__ == '__main__':
+    from users.bots.tg_bot import main as bot_main
+    p = Process(target=bot_main)
+    p.start()
     main()
