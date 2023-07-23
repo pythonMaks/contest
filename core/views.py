@@ -298,7 +298,7 @@ def submission_detail(request, pk):
         submission.save()
         professor = User.objects.get(username=submission.prepod)
         if professor.chat_id:  # проверить, что у профессора есть chat_id для оповещений в Telegram
-            async_to_sync(send_telegram_message)(professor.chat_id, f'Студент {submission.student} успешно решил вашу задачу {submission.task}!')
+            async_to_sync(send_telegram_message)(professor.chat_id, f'Студент {submission.student} успешно решил вашу задачу {submission.task.name}!')
     else:
         submission.status = 'WA'
         submission.save()
@@ -308,7 +308,7 @@ def submission_detail(request, pk):
     if not previous_fails.exists():
         professor = User.objects.get(username=submission.prepod)
         if  professor.chat_id:
-            async_to_sync(send_telegram_message)(professor.chat_id, f'Студент {submission.student} начал работать над вашей задачей {submission.task} и пока что не справился.')
+            async_to_sync(send_telegram_message)(professor.chat_id, f'Студент {submission.student} начал работать над вашей задачей {submission.task.name} и пока что не справился.')
     try:
         grade = TaskGrade.objects.get(student=User.objects.get(username=submission.student), task=submission.task)
     except TaskGrade.DoesNotExist:
@@ -332,4 +332,48 @@ def submission_detail(request, pk):
 
 
 
+@login_required
+def submission(request, pk):
+    submission = get_object_or_404(Submission, pk=pk)
+
+    # Попытаемся получить оценку для этого решения
+    try:
+        grade = TaskGrade.objects.get(student=User.objects.get(username=submission.student), task=submission.task)
+    except TaskGrade.DoesNotExist:
+        grade = None
+
+    if request.method == 'POST':
+        # Это POST-запрос, значит преподаватель оценивает задачу
+        form = TaskGradeForm(request.POST, instance=grade)
+        if form.is_valid():
+            grade = form.save(commit=False)
+            grade.student = User.objects.get(username=submission.student)
+            grade.task = submission.task
+            grade.save()
+            if grade.student.chat_id:
+                async_to_sync(send_telegram_message)(grade.student.chat_id, f'Профессор {submission.prepod} поставил вам оценку {grade.grade} за задачу {submission.task}!')
+            return redirect('submission_detail', pk=submission.pk)
+    else:
+        # Это GET-запрос, отображаем информацию о решении
+        form = TaskGradeForm(instance=grade)
+
+    test_cases = Test.objects.filter(task=submission.task)
+    tests = []
+    output = []
+    passed = submission.status == 'AC'
+    error = submission.status == 'E'
+
+    for test_case in test_cases:
+        tests.append(test_case)
+        output.append(test_case.output.strip())
+
+    return render(request, 'core/submission_detail.html', {
+        'grade': grade,
+        'form': form,
+        'submission': submission,
+        'tests': tests,
+        'output': output,
+        'error': error,
+        'passed': passed
+    })
 

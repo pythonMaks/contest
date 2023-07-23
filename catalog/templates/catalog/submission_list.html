@@ -4,7 +4,7 @@
 {% if user.choice == '2' %}
 <h1>Решения</h1>
 {% for el in submission %}
-<h4><a href="{% url 'submission_detail' el.pk %}"> {{el.task.name}} ({{ el.get_status_display }}) </a></h4>
+<h4><a href="{% url 'submission' el.pk %}"> {{el.task.name}} ({{ el.get_status_display }}) </a></h4>
 
 <hr>
 {% endfor %}
