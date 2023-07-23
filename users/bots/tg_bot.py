@@ -26,7 +26,7 @@ async def handle_code(message: types.Message):
         user = await sync_to_async(User.objects.get, thread_sensitive=True)(access_code=user_message)        
         user.chat_id = chat_id
         await sync_to_async(user.save, thread_sensitive=True)()
-        if user.choice == 3:
+        if user.choice == '3':
             await message.reply(f'А вы, {user.username}, админ! Вам оповещения не положены')    
         else:
             await message.reply(f'Добро пожаловать, {user.username}! Вы успешно подписались на оповещения!')
