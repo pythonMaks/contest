@@ -1,39 +1,49 @@
-from telegram import Update, ForceReply, Bot
-from telegram.ext import ApplicationBuilder, CommandHandler, MessageHandler, filters, CallbackContext
+from aiogram import Bot, types
+from aiogram.dispatcher import Dispatcher
+from aiogram.utils import executor
 from users.models import User
 
-def start(update: Update, context: CallbackContext) -> None:
-    update.message.reply_text('Введите ваш секретный код', reply_markup=ForceReply())
+bot = Bot(token="6503653218:AAEq4laa7R5Zf7pQUYJhrEWcmf7HrVriGnE")
+dp = Dispatcher(bot)
 
-def send_telegram_message(chat_id, text):
-    bot = Bot(token="6503653218:AAEq4laa7R5Zf7pQUYJhrEWcmf7HrVriGnE")
-    bot.send_message(chat_id, text)
-    
-def handle_code(update: Update, context: CallbackContext) -> None:
-    user_message = update.message.text
-    chat_id = update.message.chat_id
+async def send_telegram_message(chat_id, text):
+    await bot.send_message(chat_id, text)
+
+async def handle_start(message: types.Message):
+    await message.reply("Введите ваш секретный код")
+
+async def handle_change(message: types.Message):
+    await message.reply("Введите новый секретный код")
+
+async def handle_code(message: types.Message):
+    user_message = message.text
+    chat_id = message.chat.id
+
     try:
         user = User.objects.get(access_code=user_message)
         user.chat_id = chat_id
         user.save()
-        update.message.reply_text(f'Добро пожаловать, {user.username}! Вы успешно подписались на оповещения!')
+        await message.reply(f'Добро пожаловать, {user.username}! Вы успешно подписались на оповещения!')
     except User.DoesNotExist:
-        update.message.reply_text('Введен не корректный код! Проверьте код в вашем профиле http://13.50.99.201:8000/profile/')
+        await message.reply('Введен не корректный код! Проверьте код в вашем профиле http://13.50.99.201:8000/profile/')
 
-def change(update: Update, context: CallbackContext) -> None:
-    update.message.reply_text('Введите новый секретный код', reply_markup=ForceReply())
-    
-def main() -> None:
-    builder = ApplicationBuilder()
+@dp.message_handler(commands=['start'])
+async def handle_start_command(message: types.Message):
+    await handle_start(message)
 
-    builder.updater(bot=Bot("6503653218:AAEq4laa7R5Zf7pQUYJhrEWcmf7HrVriGnE"))
-    
-    builder.dispatcher().add_handler(CommandHandler("start", start))
-    builder.dispatcher().add_handler(CommandHandler("change", change))
-    builder.dispatcher().add_handler(MessageHandler(filters.text & ~filters.command, handle_code))
+@dp.message_handler(commands=['change'])
+async def handle_change_command(message: types.Message):
+    await handle_change(message)
 
-    with builder.build() as application:
-        application.run_polling()
+@dp.message_handler(content_types=types.ContentTypes.TEXT)
+async def handle_text_message(message: types.Message):
+    await handle_code(message)
 
-if __name__ == '__main__':
-    main()
+async def main():
+    await dp.start_polling()
+
+# И там где у вас вызывается функция:
+# send_telegram_message(professor.chat_id, f'Студент {submission.student} успешно решил вашу задачу {submission.task}!')
+
+# Замените на:
+# asyncio.create_task(send_telegram_message(professor.chat_id, f'Студент {submission.student} успешно решил вашу задачу {submission.task}!'))
