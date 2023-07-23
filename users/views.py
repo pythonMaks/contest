@@ -34,6 +34,8 @@ def profile(request):
                 user = password_form.save()
                 update_session_auth_hash(request, user)
                 messages.success(request, 'Пароль изменён!')
+        elif 'generate_code' in request.POST:
+            user.save()
         else:
             user_form = UserProfileForm(request.POST, instance=user)
             if user_form.is_valid():
