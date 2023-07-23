@@ -23,10 +23,13 @@ async def handle_code(message: types.Message):
     chat_id = message.chat.id
 
     try:
-        user = await sync_to_async(User.objects.get, thread_sensitive=True)(access_code=user_message)
+        user = await sync_to_async(User.objects.get, thread_sensitive=True)(access_code=user_message)        
         user.chat_id = chat_id
         await sync_to_async(user.save, thread_sensitive=True)()
-        await message.reply(f'Добро пожаловать, {user.username}! Вы успешно подписались на оповещения!')
+        if user.choice == 3:
+            await message.reply(f'А вы, {user.username}, админ! Вам оповещения не положены')    
+        else:
+            await message.reply(f'Добро пожаловать, {user.username}! Вы успешно подписались на оповещения!')
     except User.DoesNotExist:
         await message.reply('Введен не корректный код! Проверьте код в вашем профиле http://13.50.99.201:8000/profile/')
 
