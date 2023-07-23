@@ -3,6 +3,8 @@ from aiogram.dispatcher import Dispatcher
 from aiogram.utils import executor
 from users.models import User
 import asyncio
+from asgiref.sync import sync_to_async
+
 
 bot = Bot(token="6503653218:AAEq4laa7R5Zf7pQUYJhrEWcmf7HrVriGnE")
 dp = Dispatcher(bot)
@@ -21,7 +23,7 @@ async def handle_code(message: types.Message):
     chat_id = message.chat.id
 
     try:
-        user = User.objects.get(access_code=user_message)
+        user = await sync_to_async(User.objects.get, thread_sensitive=True)(access_code=user_message)
         user.chat_id = chat_id
         user.save()
         await message.reply(f'Добро пожаловать, {user.username}! Вы успешно подписались на оповещения!')

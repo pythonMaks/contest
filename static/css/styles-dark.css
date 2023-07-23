@@ -47,7 +47,7 @@ body.special-background {
     position: fixed;
     height: 100%;
     width: 100%;
-    z-index: 1;
+ 
 } 
   pre {
     white-space: pre-wrap;
