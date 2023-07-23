@@ -1,7 +1,6 @@
-from telegram import Update, ForceReply
-from telegram.ext import Updater, CommandHandler, MessageHandler, filters, CallbackContext
+from telegram import Update, ForceReply, Bot
+from telegram.ext import ApplicationBuilder, CommandHandler, MessageHandler, filters, CallbackContext
 from users.models import User
-from telegram import Bot
 
 def start(update: Update, context: CallbackContext) -> None:
     update.message.reply_text('Введите ваш секретный код', reply_markup=ForceReply())
@@ -13,8 +12,6 @@ def send_telegram_message(chat_id, text):
 def handle_code(update: Update, context: CallbackContext) -> None:
     user_message = update.message.text
     chat_id = update.message.chat_id
-    # Get user from database using user_message as access code
-    # I use Django's ORM for database interactions, but you can use your preferred method.
     try:
         user = User.objects.get(access_code=user_message)
         user.chat_id = chat_id
@@ -27,18 +24,16 @@ def change(update: Update, context: CallbackContext) -> None:
     update.message.reply_text('Введите новый секретный код', reply_markup=ForceReply())
     
 def main() -> None:
-    updater = Updater("6503653218:AAEq4laa7R5Zf7pQUYJhrEWcmf7HrVriGnE")
+    builder = ApplicationBuilder()
 
-    dispatcher = updater.dispatcher
+    builder.updater(bot=Bot("6503653218:AAEq4laa7R5Zf7pQUYJhrEWcmf7HrVriGnE"))
+    
+    builder.dispatcher().add_handler(CommandHandler("start", start))
+    builder.dispatcher().add_handler(CommandHandler("change", change))
+    builder.dispatcher().add_handler(MessageHandler(filters.text & ~filters.command, handle_code))
 
-    dispatcher.add_handler(CommandHandler("start", start))
-    dispatcher.add_handler(CommandHandler("change", change))
-    dispatcher.add_handler(MessageHandler(filters.text & ~filters.command, handle_code))
-
-    updater.start_polling()
-
-    updater.idle()
-
+    with builder.build() as application:
+        application.run_polling()
 
 if __name__ == '__main__':
     main()
