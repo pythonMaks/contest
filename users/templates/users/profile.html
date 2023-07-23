@@ -15,11 +15,11 @@
                 <hr>
                 <div class="form-group">
                     <label for="access_code">Хотите получать оповещения в телеграме?</label>
-                    {{ if access_code }}
+                    {% if access_code %}
                     <p>Ваш код для активации бота:<h3>{{ access_code }}</h></p>
-                    {{ else }}
+                    {% else %}
                     <input type="submit" class="btn btn-primary" name="generate_code" value="Сгенерировать код">
-                    {{ endif }}
+                    {% endif %}
                 </div>
                 <div>
                     <p>Введите этот код в нашем <a href="https://t.me/itcontest_kg_bot">Telegram боте</a></p>
