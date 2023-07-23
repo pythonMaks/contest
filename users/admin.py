@@ -17,6 +17,7 @@ class CustomUserAdmin(UserAdmin):
             'fields': (
                 'choice',
                 'date',
+                'chat_id'
             ),
         }),
         ('Permissions', {
