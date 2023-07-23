@@ -3,7 +3,7 @@
 {% if user.choice == '1' %}
 <h1>Список решений</h1>
 {% for el in article %}
-<h3><a href="{% url 'submission_detail' el.pk %}"> {{el.task.name}} ({{ el.get_status_display }}) </a></h3>
+<h3><a href="{% url 'submission' el.pk %}"> {{el.task.name}} ({{ el.get_status_display }}) </a></h3>
 <hr>
 {% endfor %}
 {% elif user.choice == '2' %}
