@@ -1,12 +1,13 @@
 import os
 import django
+import asyncio
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'contest.settings')
 django.setup()
 
-def run_bot():
+async def run_bot():
     from users.bots.tg_bot import main
-    main()
+    await main()
 
 if __name__ == '__main__':
-    run_bot()
+    asyncio.run(run_bot())
