@@ -6,7 +6,7 @@ import asyncio
 from asgiref.sync import sync_to_async
 
 
-bot = Bot(token="6503653218:AAEq4laa7R5Zf7pQUYJhrEWcmf7HrVriGnE")
+bot = Bot(token="")
 dp = Dispatcher(bot)
 
 async def send_telegram_message(chat_id, text):
